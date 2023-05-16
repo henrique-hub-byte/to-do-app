@@ -1,29 +1,72 @@
 import { useState } from "react"
 
-const Modal = ({mode, setShowModal}) => {
+const Modal = ({mode, setShowModal, getData, task}) => {
   //const mode = 'create'
   const editMode = mode === 'edit' ? true : false  
  
   const [data , setData] = useState({
-    user_email: "",
-    title: "",
-    progress: "",
-    date: editMode ? "" : new Date()
+    user_email: editMode ? task.user_email : 'luis@gmail.com',
+    title: editMode ? task.title : null,
+    progress: editMode ? task.progress : 50,
+    date: editMode ? task.date : new Date()
   }) 
+
+  const postData = async (e) => {
+    e.preventDefault()
+    try {
+      console.log({aqui:data})
+      const response = await fetch('http://localhost:8000/todos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      if(response.status === 200) {
+        console.log('WORKED')
+        setShowModal(false)
+        getData()
+      }
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
+  const editData = async(e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch(`http://localhost:8000/todos/${task.id}`,{
+        method: 'PUT',
+        headers: {'Content-Type': 'application/josn' },
+        body: JSON.stringify(data)  
+      })
+     if(response.status === 200 ){
+      setShowModal(false)
+      getData()
+     } 
+    } catch(err) {
+      console.log(err)
+    } 
+  }
 
 
   const handleChange = (e) => {
-    console.log('changing!', e)
+   // console.log('changing!', e)
     const {name, value} = e.target
 
+  /*   console.log({"input alvo":e.target})
+    data[name] = value
+    console.log({data})
+    const newValue = {}
+    newValue[name] = value */
+
     setData(data => ({
-      ...data
-      [name] , value
-    }))
+      ...data,
+      [name]: value
+      /* ...newValue */
+    })) 
 
     console.log('********')
-    console.log(data)
-    console.log('********')
+     console.log(data)
+     console.log('********')
   }
 
   return (
@@ -55,7 +98,8 @@ const Modal = ({mode, setShowModal}) => {
             value={data.progress}
             onChange={handleChange}
             />
-            <input className={mode} type="submit"></input>
+           
+            <input className={mode} type="submit" onClick={editMode ? editData : postData}></input>
 
           </form>
         </div>
