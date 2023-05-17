@@ -9,6 +9,6 @@ CREATE TABLE todos (
 );
 
 CREATE TABLE USERS (
-    id VARCHAR(255) PRIMARY KEY,
+    email VARCHAR(255) ,
     hashed_passoword VARCHAR(255)
 );

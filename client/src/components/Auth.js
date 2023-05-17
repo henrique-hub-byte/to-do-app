@@ -1,13 +1,15 @@
 import { useState } from "react";
-
+import { useCookies } from "react-cookie";
 const Auth = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(null)
     const [isLogin, setIsLogin] = useState(false) 
     const [email, setEmail] = useState(null) 
     const [password, setPassword] = useState(null) 
     const [confirmPassword, setConfirmPassword] = useState(null) 
     const [error, setError] = useState(null)
-
-    console.log(email, password, confirmPassword)
+    console.log('555555555555')
+    console.log(email)
+    console.log('555555555555')
   
     const viewLogin = (status) => {
       setError(null)
@@ -21,7 +23,7 @@ const Auth = () => {
         setError('Make sure passwords match!!!')
         return
       }
-
+      console.log("are are are are")
       const response = await fetch(`http://localhost:8000/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -29,8 +31,15 @@ const Auth = () => {
       })
 
       const data = await response.json()
+      console.log("heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
+      console.log(response)
       if(data.detail) {
         setError(data.detail)
+      } else {
+        setCookie('Email',data.email)
+        setCookie('AuthToken',data.token)
+
+        //window.location.reload()
       }
     }  
     return (
