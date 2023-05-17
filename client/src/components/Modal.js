@@ -2,9 +2,11 @@ import { useState } from "react"
 
 const Modal = ({mode, setShowModal, getData, task}) => {
   //const mode = 'create'
+  console.log(task)
   const editMode = mode === 'edit' ? true : false  
  
   const [data , setData] = useState({
+    
     user_email: editMode ? task.user_email : 'luis@gmail.com',
     title: editMode ? task.title : null,
     progress: editMode ? task.progress : 50,
@@ -15,7 +17,7 @@ const Modal = ({mode, setShowModal, getData, task}) => {
     e.preventDefault()
     try {
       console.log({aqui:data})
-      const response = await fetch('http://localhost:8000/todos', {
+      const response = await fetch(`http://localhost:8000/todos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -35,7 +37,7 @@ const Modal = ({mode, setShowModal, getData, task}) => {
     try {
       const response = await fetch(`http://localhost:8000/todos/${task.id}`,{
         method: 'PUT',
-        headers: {'Content-Type': 'application/josn' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)  
       })
      if(response.status === 200 ){
