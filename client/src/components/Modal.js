@@ -13,7 +13,7 @@ const Modal = ({mode, setShowModal, getData, task}) => {
     progress: editMode ? task.progress : 50,
     date: editMode ? task.date : new Date()
   }) 
-  console.log("aquiii")
+
   const postData = async (e) => {
     e.preventDefault()
     try {

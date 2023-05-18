@@ -18,6 +18,7 @@ const ListItem = ({ task,getData }) => {
     } catch(err){
       console.log(err)
     }
+    window.location.reload()
   }  
   return (
     <li className="list-item">

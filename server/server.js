@@ -13,15 +13,15 @@ app.use(express.json())
 app.get('/todos/:userEmail', async (req, res) => {
    
     const { userEmail } = req.params;
-    /* console.log('++++++++++++++++++');
+    console.log('++++++++++++++++++');
     console.log(req.params);
-    console.log('++++++++++++++++++'); */
+    console.log('++++++++++++++++++'); 
     try {
         const todos = await pool.query('SELECT * FROM todos WHERE user_email = ?', userEmail)
         res.setHeader('Content-Type', 'application/json');
-        /* console.log('***************');
+        console.log('***************');
         console.log(todos);
-        console.log('***************'); */
+        console.log('***************');
         //res.json(todos.rows); outra forma de trazer o resultado, objeto
         res.json(todos[0]);
     } catch(err) {
@@ -97,7 +97,7 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body
     try {
         const users = await pool.query('SELECT * FROM users WHERE email = ?', [email]) 
-       
+      
         if(!users[0].length) {
             return res.json ({detail:  'User does not exist!'})
         } 
@@ -109,7 +109,8 @@ app.post('/login', async (req, res) => {
         if(success){
             console.log("é o brabo")
             console.log(users[0][0].email)
-
+            
+            
             res.json({'email': users[0][0].email, token})
         } else {
             res.json({detail: 'Login failed'})

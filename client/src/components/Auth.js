@@ -39,7 +39,7 @@ const Auth = () => {
         setCookie('Email',data.email)
         setCookie('AuthToken',data.token)
 
-        //window.location.reload()
+        window.location.reload()
       }
     }  
     return (
