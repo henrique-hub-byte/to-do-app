@@ -38,9 +38,11 @@ const sortedTasks = tasks?.sort((a,b) => new Date(a.date) - new Date(b.date))
       {authToken &&
       <>
       <ListHeader listName={'👺 holiday tick list'} getData={getData} />
+      <p className="user_email">Welcome Back {userEmail}</p>
       {sortedTasks?.map((task) => <ListItem key={task.id} task={task} getData={getData}/>)}
       </>
       }
+      <p className="copyright">© Creating Coding LHMSB</p>
     </div>
   )
 }

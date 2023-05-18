@@ -94,9 +94,26 @@ app.post('/signup', async (req, res ) => {
 })
 /* logn */
 app.post('/login', async (req, res) => {
-    const [email, password] = req.body
+    const { email, password } = req.body
     try {
+        const users = await pool.query('SELECT * FROM users WHERE email = ?', [email]) 
+       
+        if(!users[0].length) {
+            return res.json ({detail:  'User does not exist!'})
+        } 
+        
+        const success = await bcrypt.compare(password, users[0][0].hashed_passoword)
+        const token = jwt.sign({email} , 'secret', {expiresIn: '1hr'})
+        console.log("ante do if")
+            console.log(users[0][0])
+        if(success){
+            console.log("é o brabo")
+            console.log(users[0][0].email)
 
+            res.json({'email': users[0][0].email, token})
+        } else {
+            res.json({detail: 'Login failed'})
+        }
     } catch(err) {
         console.log(err)
     }

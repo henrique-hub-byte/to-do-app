@@ -23,7 +23,7 @@ const Auth = () => {
         setError('Make sure passwords match!!!')
         return
       }
-      console.log("are are are are")
+     
       const response = await fetch(`http://localhost:8000/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
