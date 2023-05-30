@@ -3,7 +3,7 @@ import TickIcon from './TickIcon';
 import Modal from './Modal';
 import ProgressBar from './ProgressBar';
 
-const ListItem = ({ task,getData }) => {
+const ListItem = ({ task, getData }) => {
   const [showModal, setShowModal] = useState(false)
 
   const deleteItem = async (e) => {
@@ -26,7 +26,7 @@ const ListItem = ({ task,getData }) => {
       <div className="info-container">
         <TickIcon/>
         <p className='task-title'>{task.title}</p>
-        <ProgressBar Progress={task.progress}/>
+        <ProgressBar progress={task.progress}/>
       </div>
 
       <div className='button-container'>

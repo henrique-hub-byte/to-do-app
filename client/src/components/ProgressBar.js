@@ -1,4 +1,5 @@
 const ProgressBar = ({ progress }) => {
+
   const colors = [
     'rgb(255, 214, 161)',
     'rgb(255, 175, 163)',
@@ -7,10 +8,10 @@ const ProgressBar = ({ progress }) => {
   ];
 
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
-  
-  console.log(progress);
+  console.log('aqiiiiiiiiiiiiiiiiiiiiiiii')
+ console.log(progress);
   return (
-    <div>oi `${randomColor}%`
+    <div>
     <div className="outer_bar">
       
       <div
